@@ -14,6 +14,11 @@ namespace SafeFile
 
 		private void ValidateSignature()
 		{
+			if (BaseStream.Length < SHA256.HashSizeInBytes)
+			{
+				throw new FileCorruptedException();
+			}
+
 			BaseStream.Seek(-SHA256.HashSizeInBytes, SeekOrigin.End);
 			var storedHash = ReadBytes(SHA256.HashSizeInBytes);
 
@@ -55,6 +60,21 @@ namespace SafeFile
 			}
 
 			return true;
+		}
+
+
+		public static bool IsValid(string fileName)
+		{
+			try
+			{
+				using FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+				using SignedBinaryReader sbr = new SignedBinaryReader(fs);
+				return true;
+			}
+			catch (FileCorruptedException)
+			{
+				return false;
+			}
 		}
 	}
 }
