@@ -14,7 +14,7 @@ namespace Tests.Atomic
 			double randomValue = Random.Shared.NextDouble();
 			AtomicFileStorage file = new(FILE_NAME);
 
-			file.Write((writer) =>
+			file.WriteAndSave((writer) =>
 			{
 				writer.Write(randomValue);
 			});

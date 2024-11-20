@@ -41,14 +41,13 @@
 		}
 
 
-		public void Write(Action<SignedBinaryWriter> writeFn)
+		public void WriteAndSave(Action<SignedBinaryWriter> writeFn)
 		{
 			string tempFileName = TempFileName();
 			using (FileStream fs = new(tempFileName, FileMode.Create, FileAccess.ReadWrite))
 			{
 				using SignedBinaryWriter writer = new(fs);
 				writeFn(writer);
-				// writer.Dispose();
 			}
 
 			if (File.Exists(FileName))
