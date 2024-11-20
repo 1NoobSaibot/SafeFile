@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeFile", "SafeFile\SafeFile.csproj", "{8233AEA7-53CB-4F05-AC0F-F5E81C662B43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{4BAFD7DA-3F88-412E-B15B-A73E6046DC49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeFileTests", "SafeFileTests\SafeFileTests.csproj", "{4BAFD7DA-3F88-412E-B15B-A73E6046DC49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
