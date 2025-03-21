@@ -1,6 +1,6 @@
 ﻿using SafeFile;
 
-namespace Tests
+namespace SafeFileTests
 {
 	[TestClass]
 	public class SignedBinaryWriterReaderTest

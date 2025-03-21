@@ -24,6 +24,7 @@ namespace SafeFile
 
 		public override ValueTask DisposeAsync()
 		{
+			GC.SuppressFinalize(this);
 			Sign();
 			return base.DisposeAsync();
 		}
@@ -39,7 +40,7 @@ namespace SafeFile
 			BaseStream.Seek(0, SeekOrigin.Begin);
 			var contentLength = BaseStream.Length;
 			var buffer = new byte[contentLength];
-			BaseStream.Read(buffer, 0, buffer.Length);
+			BaseStream.ReadExactly(buffer);
 			var hash = SHA256.HashData(buffer);
 
 			BaseStream.Seek(0, SeekOrigin.End);

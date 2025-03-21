@@ -30,7 +30,7 @@ namespace SafeFile
 			base.BaseStream.Seek(0, SeekOrigin.Begin);
 			var contentLength = base.BaseStream.Length - SHA256.HashSizeInBytes;
 			var buffer = new byte[contentLength];
-			base.BaseStream.Read(buffer, 0, buffer.Length);
+			base.BaseStream.ReadExactly(buffer);
 			var computedHash = SHA256.HashData(buffer);
 
 			if (AreEqual(storedHash, computedHash) == false)
@@ -72,8 +72,8 @@ namespace SafeFile
 		{
 			try
 			{
-				using FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-				using SignedBinaryReader sbr = new SignedBinaryReader(fs);
+				using FileStream fs = new(fileName, FileMode.Open, FileAccess.Read);
+				using SignedBinaryReader sbr = new(fs);
 				return true;
 			}
 			catch (FileCorruptedException)

@@ -1,6 +1,6 @@
 ﻿using SafeFile.Atomic;
 
-namespace Tests.Atomic
+namespace SafeFileTests.Atomic
 {
 	[TestClass]
 	public class AtomicFileTest
