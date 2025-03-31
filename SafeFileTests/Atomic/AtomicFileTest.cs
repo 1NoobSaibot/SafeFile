@@ -27,6 +27,18 @@ namespace SafeFileTests.Atomic
 
 			Assert.IsTrue(wasRead);
 			Assert.AreEqual(randomValue, readValue);
+
+			readValue = 0;
+			wasRead = file.TryRead<double>(
+				reader =>
+				{
+					return reader.ReadDouble();
+				},
+				out readValue
+			);
+
+			Assert.IsTrue(wasRead);
+			Assert.AreEqual(randomValue, readValue);
 		}
 	}
 }

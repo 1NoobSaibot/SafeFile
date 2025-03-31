@@ -41,6 +41,20 @@
 		}
 
 
+		public bool TryRead<T>(Func<SignedBinaryReader, T> readFn, out T? result)
+		{
+			if (File.Exists(FileName))
+			{
+				using FileStream fs = new(FileName, FileMode.Open, FileAccess.Read);
+				using SignedBinaryReader sbr = new(fs);
+				result = readFn(sbr);
+				return true;
+			}
+			result = default;
+			return false;
+		}
+
+
 		public void WriteAndSave(Action<SignedBinaryWriter> writeFn)
 		{
 			string tempFileName = TempFileName();
