@@ -56,7 +56,7 @@ namespace SafeFile
 				return false;
 			}
 
-			for (int i = 0; i < a.Length; i++)
+			foreach (int i in a.Length)
 			{
 				if (a[i] != b[i])
 				{

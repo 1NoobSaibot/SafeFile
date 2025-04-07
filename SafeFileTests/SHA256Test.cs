@@ -26,7 +26,7 @@ namespace SafeFileTests
 		{
 			Assert.AreEqual(e.Length, a.Length);
 
-			for (int i = 0; i < e.Length; i++)
+			foreach (int i in e.Length)
 			{
 				Assert.AreEqual(e[i], a[i]);
 			}
