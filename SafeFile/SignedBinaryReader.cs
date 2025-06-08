@@ -68,7 +68,18 @@ namespace SafeFile
 		}
 
 
-		public static bool IsValid(string fileName)
+		public static bool ExistsAndIsValid(FilePath fileName)
+		{
+			if (!File.Exists(fileName))
+			{
+				return false;
+			}
+
+			return IsValid(fileName);
+		}
+
+
+		public static bool IsValid(FilePath fileName)
 		{
 			try
 			{

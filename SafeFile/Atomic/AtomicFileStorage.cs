@@ -4,26 +4,33 @@
 	{
 		protected virtual string TempExtension => "temp";
 		public readonly string FileName;
+		public readonly string TempFileName;
 
 
 		public AtomicFileStorage(string fileName)
 		{
 			FileName = fileName;
+			TempFileName = GetTempFileName();
 			TryFinishTransaction();
+		}
+
+
+		public bool Exists()
+		{
+			return SignedBinaryReader.ExistsAndIsValid(FileName);
 		}
 
 
 		private void TryFinishTransaction()
 		{
-			string tempFileName = TempFileName();
-			if (File.Exists(tempFileName))
+			if (File.Exists(TempFileName))
 			{
-				if (SignedBinaryReader.IsValid(tempFileName))
+				if (SignedBinaryReader.IsValid(TempFileName))
 				{
 					File.Delete(FileName);
-					File.Move(tempFileName, FileName);
+					File.Move(TempFileName, FileName);
 				}
-				File.Delete(tempFileName);
+				File.Delete(TempFileName);
 			}
 		}
 
@@ -57,8 +64,7 @@
 
 		public void WriteAndSave(Action<SignedBinaryWriter> writeFn)
 		{
-			string tempFileName = TempFileName();
-			using (FileStream fs = new(tempFileName, FileMode.Create, FileAccess.ReadWrite))
+			using (FileStream fs = new(TempFileName, FileMode.Create, FileAccess.ReadWrite))
 			{
 				using SignedBinaryWriter writer = new(fs);
 				writeFn(writer);
@@ -69,12 +75,12 @@
 				File.Delete(FileName);
 			}
 
-			File.Move(tempFileName, FileName);
-			File.Delete(tempFileName);
+			File.Move(TempFileName, FileName);
+			File.Delete(TempFileName);
 		}
 
 
-		private string TempFileName()
+		private string GetTempFileName()
 		{
 			return FileName + "." + TempExtension;
 		}

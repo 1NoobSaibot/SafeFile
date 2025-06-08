@@ -37,7 +37,14 @@ namespace SafeFile.Helpers
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string[] ReadStringArray(this BinaryReader reader)
 		{
-			return reader.ReadArray<string>((reader) => reader.ReadString());
+			return reader.ReadArray((reader) => reader.ReadString());
+		}
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static long[] ReadInt64Array(this BinaryReader reader)
+		{
+			return reader.ReadArray((reader) => reader.ReadInt64());
 		}
 
 
